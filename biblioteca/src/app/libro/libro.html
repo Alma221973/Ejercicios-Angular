@@ -6,7 +6,11 @@
     Cerrar sesión
   </button>
 
-  <h2>Registrar libro</h2>
+  @if (indiceEditar === -1) {
+    <h2>Registrar libro</h2>
+  } @else {
+    <h2>Editar libro</h2>
+  }
 
   <form (ngSubmit)="guardar()">
 
@@ -45,10 +49,20 @@
       step="1"
       required>
 
-    <button type="submit">Guardar</button>
+    <button type="submit">
+      @if (indiceEditar === -1) {
+        Guardar
+      } @else {
+        Actualizar
+      }
+    </button>
 
     <button type="button" (click)="limpiar()">
-      Limpiar
+      @if (indiceEditar === -1) {
+        Limpiar
+      } @else {
+        Cancelar
+      }
     </button>
 
   </form>
@@ -60,6 +74,7 @@
   @if (libros.length === 0) {
     <p>No hay libros registrados.</p>
   } @else {
+
     <table border="1">
       <thead>
         <tr>
@@ -68,21 +83,27 @@
           <th>Título</th>
           <th>Autor</th>
           <th>Año</th>
+          <th>Acciones</th>
         </tr>
       </thead>
 
       <tbody>
-        @for (libro of libros; track libro.id) {
+        @for (libro of libros; track libro.id; let i = $index) {
           <tr>
             <td>{{ libro.id }}</td>
             <td>{{ libro.codigo }}</td>
             <td>{{ libro.titulo }}</td>
             <td>{{ libro.autor }}</td>
             <td>{{ libro.anio }}</td>
+            <td>
+              <button type="button" (click)="editar(i)">
+                Editar
+              </button>
+            </td>
           </tr>
         }
       </tbody>
     </table>
+
   }
 </main>
-
