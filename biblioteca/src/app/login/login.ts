@@ -17,7 +17,7 @@ export class Login {
   iniciarSesion() {
     if (this.usuario === 'bibliotecario' && this.clave === 'biblio123') {
       localStorage.setItem('sesionBiblioteca', 'si');
-      alert('Sesión iniciada correctamente');
+      this.router.navigate(['/libro']);
      } else {
       alert('Usuario o contraseña incorrectos')
     }
