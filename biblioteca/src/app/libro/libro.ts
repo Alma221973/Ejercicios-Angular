@@ -58,7 +58,7 @@ export class Libro {
     this.indiceEditar = indice;
   }
   //
-  
+
   //Crear
   guardar() {
 
@@ -120,6 +120,16 @@ export class Libro {
     this.anio = null;
     this.indiceEditar = -1; //Editar
   } 
+  //
+
+  //Eliminar
+  eliminar(indice: number) {
+  if (confirm('¿Eliminar este libro?')) {
+    this.libros.splice(indice, 1);
+    this.guardarEnLocalStorage();
+    this.limpiar();
+    }
+  }
   //
 
   cerrarSesion() {
