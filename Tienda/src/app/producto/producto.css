@@ -1,0 +1,26 @@
+main {
+  max-width: 1000px;
+  margin: 24px auto;
+  padding: 16px;
+  font-family: Arial, sans-serif;
+}
+
+button {
+  padding: 8px 12px;
+  cursor: pointer;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 15px;
+}
+
+th, td {
+  padding: 10px;
+  text-align: left;
+}
+
+th {
+  background-color: #dceafa;
+}
