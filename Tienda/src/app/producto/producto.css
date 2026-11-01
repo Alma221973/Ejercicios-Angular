@@ -24,3 +24,24 @@ th, td {
 th {
   background-color: #dceafa;
 }
+
+form {
+  max-width: 450px;
+  margin-bottom: 25px;
+}
+
+label {
+  display: block;
+  margin-top: 12px;
+}
+
+input {
+  width: 100%;
+  padding: 8px;
+  box-sizing: border-box;
+  margin-top: 4px;
+}
+
+form button {
+  margin-right: 8px;
+}
