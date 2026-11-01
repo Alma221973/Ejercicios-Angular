@@ -26,6 +26,8 @@ export class Producto {
   precio: number | null = null;
   existencias: number | null = null;
 
+  indiceEditar = -1;
+
 
   constructor(private router: Router) {
 
@@ -41,6 +43,18 @@ export class Producto {
     }
 
   }
+
+  editar(indice: number) {
+    const producto = this.productos[indice];
+
+    this.codigo = producto.codigo;
+    this.nombre = producto.nombre;
+    this.precio = producto.precio;
+    this.existencias = producto.existencias;
+
+    this.indiceEditar = indice;
+  }
+
 
   guardar() {
     if (!this.codigo.trim() ||
@@ -62,22 +76,35 @@ export class Producto {
       return;
     }
 
-    const nuevoId = this.productos.length > 0
-      ? Math.max(...this.productos.map(producto => producto.id)) + 1
-      : 1;
+    if (this.indiceEditar === -1) {
 
-    const nuevoProducto: ProductoDatos = {
-      id: nuevoId,
-      codigo: this.codigo.trim(),
-      nombre: this.nombre.trim(),
-      precio: this.precio,
-      existencias: this.existencias
-    };
+      const nuevoId = this.productos.length > 0
+        ? Math.max(...this.productos.map(producto => producto.id)) + 1
+        : 1;
 
-    this.productos.push(nuevoProducto);
+      const nuevoProducto: ProductoDatos = {
+        id: nuevoId,
+        codigo: this.codigo.trim(),
+        nombre: this.nombre.trim(),
+        precio: this.precio,
+        existencias: this.existencias
+      };
+
+      this.productos.push(nuevoProducto);
+
+    } else {
+
+      this.productos[this.indiceEditar].codigo = this.codigo.trim();
+      this.productos[this.indiceEditar].nombre = this.nombre.trim();
+      this.productos[this.indiceEditar].precio = this.precio;
+      this.productos[this.indiceEditar].existencias = this.existencias;
+
+    }
+
     this.guardarEnLocalStorage();
     this.limpiar();
   }
+
 
   guardarEnLocalStorage() {
     localStorage.setItem(
@@ -91,6 +118,7 @@ export class Producto {
     this.nombre = '';
     this.precio = null;
     this.existencias = null;
+    this.indiceEditar = -1;
   }
 
   cerrarSesion() {
