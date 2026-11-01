@@ -44,6 +44,14 @@ export class Producto {
 
   }
 
+  eliminar(indice: number) {
+    if (confirm('¿Eliminar este producto?')) {
+      this.productos.splice(indice, 1);
+      this.guardarEnLocalStorage();
+      this.limpiar();
+    }
+  }
+
   editar(indice: number) {
     const producto = this.productos[indice];
 
