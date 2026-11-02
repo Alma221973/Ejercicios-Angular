@@ -25,6 +25,7 @@ export class Tarea {
   descripcion = '';
   fechaLimite = '';
   estado = 'Pendiente';
+  indiceEditar = -1;
 
   constructor(private router: Router) {
 
@@ -40,36 +41,61 @@ export class Tarea {
     }
   }
 
+  editar(indice: number) {
+    const tarea = this.tareas[indice];
+
+    this.titulo = tarea.titulo;
+    this.descripcion = tarea.descripcion;
+    this.fechaLimite = tarea.fechaLimite;
+    this.estado = tarea.estado;
+
+    this.indiceEditar = indice;
+  }
+
+
   guardar() {
     if (!this.titulo.trim() ||
-        !this.descripcion.trim() ||
-        !this.fechaLimite) {
+      !this.descripcion.trim() ||
+      !this.fechaLimite) {
       alert('Complete todos los campos');
       return;
     }
 
     if (this.estado !== 'Pendiente' &&
-        this.estado !== 'Completada') {
+      this.estado !== 'Completada') {
       alert('Seleccione un estado válido');
       return;
     }
 
-    const nuevoId = this.tareas.length > 0
-      ? Math.max(...this.tareas.map(tarea => tarea.id)) + 1
-      : 1;
+    if (this.indiceEditar === -1) {
 
-    const nuevaTarea: TareaDatos = {
-      id: nuevoId,
-      titulo: this.titulo.trim(),
-      descripcion: this.descripcion.trim(),
-      fechaLimite: this.fechaLimite,
-      estado: this.estado
-    };
+      const nuevoId = this.tareas.length > 0
+        ? Math.max(...this.tareas.map(tarea => tarea.id)) + 1
+        : 1;
 
-    this.tareas.push(nuevaTarea);
+      const nuevaTarea: TareaDatos = {
+        id: nuevoId,
+        titulo: this.titulo.trim(),
+        descripcion: this.descripcion.trim(),
+        fechaLimite: this.fechaLimite,
+        estado: this.estado
+      };
+
+      this.tareas.push(nuevaTarea);
+
+    } else {
+
+      this.tareas[this.indiceEditar].titulo = this.titulo.trim();
+      this.tareas[this.indiceEditar].descripcion = this.descripcion.trim();
+      this.tareas[this.indiceEditar].fechaLimite = this.fechaLimite;
+      this.tareas[this.indiceEditar].estado = this.estado;
+
+    }
+
     this.guardarEnLocalStorage();
     this.limpiar();
   }
+
 
   guardarEnLocalStorage() {
     localStorage.setItem(
@@ -83,6 +109,7 @@ export class Tarea {
     this.descripcion = '';
     this.fechaLimite = '';
     this.estado = 'Pendiente';
+    this.indiceEditar = -1;
   }
 
   cerrarSesion() {
