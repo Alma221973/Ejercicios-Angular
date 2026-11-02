@@ -42,54 +42,63 @@ export class Estudiante {
   }
 
   editar(indice: number) {
-  const estudiante = this.estudiantes[indice];
+    const estudiante = this.estudiantes[indice];
 
-  this.cuenta = estudiante.cuenta;
-  this.nombre = estudiante.nombre;
-  this.carrera = estudiante.carrera;
-  this.fechaIngreso = estudiante.fechaIngreso;
+    this.cuenta = estudiante.cuenta;
+    this.nombre = estudiante.nombre;
+    this.carrera = estudiante.carrera;
+    this.fechaIngreso = estudiante.fechaIngreso;
 
-  this.indiceEditar = indice;
- }
+    this.indiceEditar = indice;
+  }
 
- 
-guardar() {
-  if (!this.cuenta.trim() ||
+
+  eliminar(indice: number) {
+    if (confirm('¿Eliminar este estudiante?')) {
+      this.estudiantes.splice(indice, 1);
+      this.guardarEnLocalStorage();
+      this.limpiar();
+    }
+  }
+
+
+  guardar() {
+    if (!this.cuenta.trim() ||
       !this.nombre.trim() ||
       !this.carrera.trim() ||
       !this.fechaIngreso) {
-    alert('Complete todos los campos');
-    return;
+      alert('Complete todos los campos');
+      return;
+    }
+
+    if (this.indiceEditar === -1) {
+
+      const nuevoId = this.estudiantes.length > 0
+        ? Math.max(...this.estudiantes.map(e => e.id)) + 1
+        : 1;
+
+      const nuevoEstudiante: EstudianteDatos = {
+        id: nuevoId,
+        cuenta: this.cuenta.trim(),
+        nombre: this.nombre.trim(),
+        carrera: this.carrera.trim(),
+        fechaIngreso: this.fechaIngreso
+      };
+
+      this.estudiantes.push(nuevoEstudiante);
+
+    } else {
+
+      this.estudiantes[this.indiceEditar].cuenta = this.cuenta.trim();
+      this.estudiantes[this.indiceEditar].nombre = this.nombre.trim();
+      this.estudiantes[this.indiceEditar].carrera = this.carrera.trim();
+      this.estudiantes[this.indiceEditar].fechaIngreso = this.fechaIngreso;
+
+    }
+
+    this.guardarEnLocalStorage();
+    this.limpiar();
   }
-
-  if (this.indiceEditar === -1) {
-
-    const nuevoId = this.estudiantes.length > 0
-      ? Math.max(...this.estudiantes.map(e => e.id)) + 1
-      : 1;
-
-    const nuevoEstudiante: EstudianteDatos = {
-      id: nuevoId,
-      cuenta: this.cuenta.trim(),
-      nombre: this.nombre.trim(),
-      carrera: this.carrera.trim(),
-      fechaIngreso: this.fechaIngreso
-    };
-
-    this.estudiantes.push(nuevoEstudiante);
-
-  } else {
-
-    this.estudiantes[this.indiceEditar].cuenta = this.cuenta.trim();
-    this.estudiantes[this.indiceEditar].nombre = this.nombre.trim();
-    this.estudiantes[this.indiceEditar].carrera = this.carrera.trim();
-    this.estudiantes[this.indiceEditar].fechaIngreso = this.fechaIngreso;
-
-  }
-
-  this.guardarEnLocalStorage();
-  this.limpiar();
-}
 
 
   guardarEnLocalStorage() {

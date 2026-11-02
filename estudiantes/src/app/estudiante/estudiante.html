@@ -1,106 +1,88 @@
-
 <main>
-  <h1>Registro de estudiantes</h1>
+    <h1>Registro de estudiantes</h1>
 
-  <button type="button" (click)="cerrarSesion()">
-    Cerrar sesión
-  </button>
+    <button type="button" (click)="cerrarSesion()">
+        Cerrar sesión
+    </button>
 
-  @if (indiceEditar === -1) {
+    @if (indiceEditar === -1) {
     <h2>Registrar estudiante</h2>
-  } @else {
+    } @else {
     <h2>Editar estudiante</h2>
-  }
+    }
 
-  <form (ngSubmit)="guardar()">
+    <form (ngSubmit)="guardar()">
 
-    <label for="cuenta">Cuenta</label>
-    <input
-      id="cuenta"
-      name="cuenta"
-      type="text"
-      [(ngModel)]="cuenta"
-      required>
+        <label for="cuenta">Cuenta</label>
+        <input id="cuenta" name="cuenta" type="text" [(ngModel)]="cuenta" required>
 
-    <label for="nombre">Nombre</label>
-    <input
-      id="nombre"
-      name="nombre"
-      type="text"
-      [(ngModel)]="nombre"
-      required>
+        <label for="nombre">Nombre</label>
+        <input id="nombre" name="nombre" type="text" [(ngModel)]="nombre" required>
 
-    <label for="carrera">Carrera</label>
-    <input
-      id="carrera"
-      name="carrera"
-      type="text"
-      [(ngModel)]="carrera"
-      required>
+        <label for="carrera">Carrera</label>
+        <input id="carrera" name="carrera" type="text" [(ngModel)]="carrera" required>
 
-    <label for="fechaIngreso">Fecha de ingreso</label>
-    <input
-      id="fechaIngreso"
-      name="fechaIngreso"
-      type="date"
-      [(ngModel)]="fechaIngreso"
-      required>
+        <label for="fechaIngreso">Fecha de ingreso</label>
+        <input id="fechaIngreso" name="fechaIngreso" type="date" [(ngModel)]="fechaIngreso" required>
 
-    <button type="submit">
-      @if (indiceEditar === -1) {
-        Guardar
-      } @else {
-        Actualizar
-      }
-    </button>
+        <button type="submit">
+            @if (indiceEditar === -1) {
+            Guardar
+            } @else {
+            Actualizar
+            }
+        </button>
 
-    <button type="button" (click)="limpiar()">
-      @if (indiceEditar === -1) {
-        Limpiar
-      } @else {
-        Cancelar
-      }
-    </button>
+        <button type="button" (click)="limpiar()">
+            @if (indiceEditar === -1) {
+            Limpiar
+            } @else {
+            Cancelar
+            }
+        </button>
 
-  </form>
+    </form>
 
-  <h2>Listado de estudiantes</h2>
+    <h2>Listado de estudiantes</h2>
 
-  <p>Total de estudiantes: {{ estudiantes.length }}</p>
+    <p>Total de estudiantes: {{ estudiantes.length }}</p>
 
-  @if (estudiantes.length === 0) {
+    @if (estudiantes.length === 0) {
     <p>No hay estudiantes registrados.</p>
-  } @else {
+    } @else {
 
     <table border="1">
-      <thead>
-        <tr>
-          <th>ID</th>
-          <th>Cuenta</th>
-          <th>Nombre</th>
-          <th>Carrera</th>
-          <th>Fecha de ingreso</th>
-          <th>Acciones</th>
-        </tr>
-      </thead>
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Cuenta</th>
+                <th>Nombre</th>
+                <th>Carrera</th>
+                <th>Fecha de ingreso</th>
+                <th>Acciones</th>
+            </tr>
+        </thead>
 
-      <tbody>
-        @for (estudiante of estudiantes; track estudiante.id; let i = $index) {
-          <tr>
-            <td>{{ estudiante.id }}</td>
-            <td>{{ estudiante.cuenta }}</td>
-            <td>{{ estudiante.nombre }}</td>
-            <td>{{ estudiante.carrera }}</td>
-            <td>{{ estudiante.fechaIngreso }}</td>
-            <td>
-              <button type="button" (click)="editar(i)">
-                Editar
-              </button>
-            </td>
-          </tr>
-        }
-      </tbody>
+        <tbody>
+            @for (estudiante of estudiantes; track estudiante.id; let i = $index) {
+            <tr>
+                <td>{{ estudiante.id }}</td>
+                <td>{{ estudiante.cuenta }}</td>
+                <td>{{ estudiante.nombre }}</td>
+                <td>{{ estudiante.carrera }}</td>
+                <td>{{ estudiante.fechaIngreso }}</td>
+                <td>
+                    <button type="button" (click)="editar(i)">
+                        Editar
+                    </button>
+                    <button type="button" (click)="eliminar(i)">
+                        Eliminar
+                    </button>
+                </td>
+            </tr>
+            }
+        </tbody>
     </table>
 
-  }
+    }
 </main>
