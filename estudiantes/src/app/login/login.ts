@@ -21,7 +21,7 @@ export class Login {
         this.clave === 'alumnos123') {
 
       localStorage.setItem('sesionEstudiantes', 'si');
-      alert('Sesión iniciada correctamente');
+      this.router.navigate(['/estudiante']);
 
     } else {
       alert('Usuario o contraseña incorrectos');
