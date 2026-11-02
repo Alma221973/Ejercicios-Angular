@@ -6,6 +6,50 @@
     Cerrar sesión
   </button>
 
+  <h2>Registrar estudiante</h2>
+
+  <form (ngSubmit)="guardar()">
+
+    <label for="cuenta">Cuenta</label>
+    <input
+      id="cuenta"
+      name="cuenta"
+      type="text"
+      [(ngModel)]="cuenta"
+      required>
+
+    <label for="nombre">Nombre</label>
+    <input
+      id="nombre"
+      name="nombre"
+      type="text"
+      [(ngModel)]="nombre"
+      required>
+
+    <label for="carrera">Carrera</label>
+    <input
+      id="carrera"
+      name="carrera"
+      type="text"
+      [(ngModel)]="carrera"
+      required>
+
+    <label for="fechaIngreso">Fecha de ingreso</label>
+    <input
+      id="fechaIngreso"
+      name="fechaIngreso"
+      type="date"
+      [(ngModel)]="fechaIngreso"
+      required>
+
+    <button type="submit">Guardar</button>
+
+    <button type="button" (click)="limpiar()">
+      Limpiar
+    </button>
+
+  </form>
+
   <h2>Listado de estudiantes</h2>
 
   <p>Total de estudiantes: {{ estudiantes.length }}</p>
