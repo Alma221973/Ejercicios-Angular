@@ -52,7 +52,13 @@ export class Tarea {
     this.indiceEditar = indice;
   }
 
-
+  eliminar(indice: number) {
+    if (confirm('¿Eliminar esta tarea?')) {
+      this.tareas.splice(indice, 1);
+      this.guardarEnLocalStorage();
+      this.limpiar();
+    }
+  }
   guardar() {
     if (!this.titulo.trim() ||
       !this.descripcion.trim() ||

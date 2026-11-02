@@ -1,107 +1,91 @@
-
 <main>
-  <h1>Agenda de tareas</h1>
+    <h1>Agenda de tareas</h1>
 
-  <button type="button" (click)="cerrarSesion()">
-    Cerrar sesión
-  </button>
+    <button type="button" (click)="cerrarSesion()">
+        Cerrar sesión
+    </button>
 
-  @if (indiceEditar === -1) {
+    @if (indiceEditar === -1) {
     <h2>Registrar tarea</h2>
-  } @else {
+    } @else {
     <h2>Editar tarea</h2>
-  }
+    }
 
-  <form (ngSubmit)="guardar()">
+    <form (ngSubmit)="guardar()">
 
-    <label for="titulo">Título</label>
-    <input
-      id="titulo"
-      name="titulo"
-      type="text"
-      [(ngModel)]="titulo"
-      required>
+        <label for="titulo">Título</label>
+        <input id="titulo" name="titulo" type="text" [(ngModel)]="titulo" required>
 
-    <label for="descripcion">Descripción</label>
-    <textarea
-      id="descripcion"
-      name="descripcion"
-      [(ngModel)]="descripcion"
-      required></textarea>
+        <label for="descripcion">Descripción</label>
+        <textarea id="descripcion" name="descripcion" [(ngModel)]="descripcion" required></textarea>
 
-    <label for="fechaLimite">Fecha límite</label>
-    <input
-      id="fechaLimite"
-      name="fechaLimite"
-      type="date"
-      [(ngModel)]="fechaLimite"
-      required>
+        <label for="fechaLimite">Fecha límite</label>
+        <input id="fechaLimite" name="fechaLimite" type="date" [(ngModel)]="fechaLimite" required>
 
-    <label for="estado">Estado</label>
-    <select
-      id="estado"
-      name="estado"
-      [(ngModel)]="estado"
-      required>
-      <option value="Pendiente">Pendiente</option>
-      <option value="Completada">Completada</option>
-    </select>
+        <label for="estado">Estado</label>
+        <select id="estado" name="estado" [(ngModel)]="estado" required>
+            <option value="Pendiente">Pendiente</option>
+            <option value="Completada">Completada</option>
+        </select>
 
-    <button type="submit">
-      @if (indiceEditar === -1) {
-        Guardar
-      } @else {
-        Actualizar
-      }
-    </button>
+        <button type="submit">
+            @if (indiceEditar === -1) {
+            Guardar
+            } @else {
+            Actualizar
+            }
+        </button>
 
-    <button type="button" (click)="limpiar()">
-      @if (indiceEditar === -1) {
-        Limpiar
-      } @else {
-        Cancelar
-      }
-    </button>
+        <button type="button" (click)="limpiar()">
+            @if (indiceEditar === -1) {
+            Limpiar
+            } @else {
+            Cancelar
+            }
+        </button>
 
-  </form>
+    </form>
 
-  <h2>Listado de tareas</h2>
+    <h2>Listado de tareas</h2>
 
-  <p>Total de tareas: {{ tareas.length }}</p>
+    <p>Total de tareas: {{ tareas.length }}</p>
 
-  @if (tareas.length === 0) {
+    @if (tareas.length === 0) {
     <p>No hay tareas registradas.</p>
-  } @else {
+    } @else {
 
     <table border="1">
-      <thead>
-        <tr>
-          <th>ID</th>
-          <th>Título</th>
-          <th>Descripción</th>
-          <th>Fecha límite</th>
-          <th>Estado</th>
-          <th>Acciones</th>
-        </tr>
-      </thead>
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Título</th>
+                <th>Descripción</th>
+                <th>Fecha límite</th>
+                <th>Estado</th>
+                <th>Acciones</th>
+            </tr>
+        </thead>
 
-      <tbody>
-        @for (tarea of tareas; track tarea.id; let i = $index) {
-          <tr>
-            <td>{{ tarea.id }}</td>
-            <td>{{ tarea.titulo }}</td>
-            <td>{{ tarea.descripcion }}</td>
-            <td>{{ tarea.fechaLimite }}</td>
-            <td>{{ tarea.estado }}</td>
-            <td>
-              <button type="button" (click)="editar(i)">
-                Editar
-              </button>
-            </td>
-          </tr>
-        }
-      </tbody>
+        <tbody>
+            @for (tarea of tareas; track tarea.id; let i = $index) {
+            <tr>
+                <td>{{ tarea.id }}</td>
+                <td>{{ tarea.titulo }}</td>
+                <td>{{ tarea.descripcion }}</td>
+                <td>{{ tarea.fechaLimite }}</td>
+                <td>{{ tarea.estado }}</td>
+                <td>
+                    <button type="button" (click)="editar(i)">
+                        Editar
+                    </button>
+                    <button type="button" (click)="editar(i)">
+                        Editar
+                    </button>
+                </td>
+            </tr>
+            }
+        </tbody>
     </table>
 
-  }
+    }
 </main>
