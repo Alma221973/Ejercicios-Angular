@@ -25,6 +25,7 @@ export class Estudiante {
   nombre = '';
   carrera = '';
   fechaIngreso = '';
+  indiceEditar = -1;
 
   constructor(private router: Router) {
 
@@ -40,14 +41,28 @@ export class Estudiante {
     }
   }
 
-  guardar() {
-    if (!this.cuenta.trim() ||
-        !this.nombre.trim() ||
-        !this.carrera.trim() ||
-        !this.fechaIngreso) {
-      alert('Complete todos los campos');
-      return;
-    }
+  editar(indice: number) {
+  const estudiante = this.estudiantes[indice];
+
+  this.cuenta = estudiante.cuenta;
+  this.nombre = estudiante.nombre;
+  this.carrera = estudiante.carrera;
+  this.fechaIngreso = estudiante.fechaIngreso;
+
+  this.indiceEditar = indice;
+ }
+
+ 
+guardar() {
+  if (!this.cuenta.trim() ||
+      !this.nombre.trim() ||
+      !this.carrera.trim() ||
+      !this.fechaIngreso) {
+    alert('Complete todos los campos');
+    return;
+  }
+
+  if (this.indiceEditar === -1) {
 
     const nuevoId = this.estudiantes.length > 0
       ? Math.max(...this.estudiantes.map(e => e.id)) + 1
@@ -62,9 +77,20 @@ export class Estudiante {
     };
 
     this.estudiantes.push(nuevoEstudiante);
-    this.guardarEnLocalStorage();
-    this.limpiar();
+
+  } else {
+
+    this.estudiantes[this.indiceEditar].cuenta = this.cuenta.trim();
+    this.estudiantes[this.indiceEditar].nombre = this.nombre.trim();
+    this.estudiantes[this.indiceEditar].carrera = this.carrera.trim();
+    this.estudiantes[this.indiceEditar].fechaIngreso = this.fechaIngreso;
+
   }
+
+  this.guardarEnLocalStorage();
+  this.limpiar();
+}
+
 
   guardarEnLocalStorage() {
     localStorage.setItem(
@@ -78,6 +104,7 @@ export class Estudiante {
     this.nombre = '';
     this.carrera = '';
     this.fechaIngreso = '';
+    this.indiceEditar = -1;
   }
 
   cerrarSesion() {
