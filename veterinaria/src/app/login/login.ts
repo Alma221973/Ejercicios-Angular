@@ -21,7 +21,7 @@ export class Login {
         this.clave === 'mascotas123') {
 
       localStorage.setItem('sesionVeterinaria', 'si');
-      alert('Sesión iniciada correctamente');
+      this.router.navigate(['/mascota']);
 
     } else {
       alert('Usuario o contraseña incorrectos');
