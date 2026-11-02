@@ -6,7 +6,11 @@
     Cerrar sesión
   </button>
 
-  <h2>Registrar mascota</h2>
+  @if (indiceEditar === -1) {
+    <h2>Registrar mascota</h2>
+  } @else {
+    <h2>Editar mascota</h2>
+  }
 
   <form (ngSubmit)="guardar()">
 
@@ -44,10 +48,20 @@
       [(ngModel)]="propietario"
       required>
 
-    <button type="submit">Guardar</button>
+    <button type="submit">
+      @if (indiceEditar === -1) {
+        Guardar
+      } @else {
+        Actualizar
+      }
+    </button>
 
     <button type="button" (click)="limpiar()">
-      Limpiar
+      @if (indiceEditar === -1) {
+        Limpiar
+      } @else {
+        Cancelar
+      }
     </button>
 
   </form>
@@ -59,7 +73,6 @@
   @if (mascotas.length === 0) {
     <p>No hay mascotas registradas.</p>
   } @else {
-
     <table border="1">
       <thead>
         <tr>
@@ -68,21 +81,26 @@
           <th>Especie</th>
           <th>Edad</th>
           <th>Propietario</th>
+          <th>Acciones</th>
         </tr>
       </thead>
 
       <tbody>
-        @for (mascota of mascotas; track mascota.id) {
+        @for (mascota of mascotas; track mascota.id; let i = $index) {
           <tr>
             <td>{{ mascota.id }}</td>
             <td>{{ mascota.nombre }}</td>
             <td>{{ mascota.especie }}</td>
             <td>{{ mascota.edad }}</td>
             <td>{{ mascota.propietario }}</td>
+            <td>
+              <button type="button" (click)="editar(i)">
+                Editar
+              </button>
+            </td>
           </tr>
         }
       </tbody>
     </table>
-
   }
 </main>
