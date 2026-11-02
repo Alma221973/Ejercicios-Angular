@@ -21,7 +21,7 @@ export class Login {
         this.clave === 'tareas123') {
 
       localStorage.setItem('sesionTareas', 'si');
-      alert('Sesión iniciada correctamente');
+      this.router.navigate(['/tarea']);
 
     } else {
       alert('Usuario o contraseña incorrectos');
